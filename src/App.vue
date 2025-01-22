@@ -173,9 +173,11 @@ const formatTime = (time: number) => {
 /* Table Styles */
 table th,
 table td {
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
 }
+
+
 
 table tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.05);
