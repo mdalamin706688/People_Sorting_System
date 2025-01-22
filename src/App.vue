@@ -1,4 +1,3 @@
-// App.vue
 <template>
   <div class="min-h-screen bg-gray-100 py-8">
     <div class="max-w-7xl mx-auto px-4">
@@ -70,7 +69,7 @@
               </tr>
             </thead>
             <tbody class="text-sm">
-              <tr v-for="(score, index) in leaderboardStore.scores" :key="score.date" class="hover:bg-gray-200 transition-all ease-in-out">
+              <tr v-for="(score, index) in sortedLeaderboard" :key="score.date" class="hover:bg-gray-200 transition-all ease-in-out">
                 <td class="px-6 py-4">{{ index + 1 }}</td>
                 <td class="px-6 py-4 font-semibold">{{ score.playerName }}</td>
                 <td class="px-6 py-4">{{ score.count }}</td>
@@ -93,7 +92,6 @@
       :score="gameStore.score!"
       :count="gameStore.targetCount!"
       @restart="handleRestart"
-      
     />
 
     <EndTrainingModal
@@ -167,6 +165,10 @@ const formatTime = (time: number) => {
   const seconds = time % 60;
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 };
+
+const sortedLeaderboard = computed(() => {
+  return [...leaderboardStore.scores].sort((a, b) => a.time - b.time);
+});
 </script>
 
 <style scoped>
@@ -176,8 +178,6 @@ table td {
   text-align: center;
   white-space: nowrap;
 }
-
-
 
 table tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.05);
